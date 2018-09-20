@@ -33,39 +33,25 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
-         */
+        // Determines if all feeds have a valid URL
         it('allFeeds object(s) are defined', function() {
             allFeeds.forEach(function(feed) {
-                expect(feed.url).not.toBeNull();
+                expect(feed.url.length).not.toBe(0);
             })
         })
 
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
-         */
+        // Determines that all feeds are accurately named
         it('all feeds are named', function() {
             allFeeds.forEach(function(feed) {
-                expect(feed.name).toBeDefined()
-                expect(feed.name.length).toBeGreaterThan(0)
+                expect(feed.name).toBeTruthy();
             })
         })
         
     });
 
-
-    /* TODO: Write a new test suite named "The menu" */
-
-        /* TODO: Write a test that ensures the menu element is
-        * hidden by default. You'll have to analyze the HTML and
-        * the CSS to determine how we're performing the
-        * hiding/showing of the menu element.
-        * 
-        */
+    // Menu Spec; Menu spec identifies if menu status is hidden by default, 
+    // and if status changes upon click.
     describe('The Menu', function() {
         let bodyz;
 
@@ -74,22 +60,19 @@ $(function() {
          })
 
         
+         //
         it('Menu is hidden by default', function() {
             
             expect(bodyz.length).toBeGreaterThan(0)
         })
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
+        //Show/hide are two 
         it('Menu is visible when clicked', function() {
             let show = $('.menu-icon-link').click();
-            expect(bodyz.length).toBe(0);
+            expect($('body').hasClass("menu-hidden")).toBe(false);
 
             let hide = $('.menu-icon-link').click();
-            expect(bodyz.length).toBe(1);
+            expect($('body').hasClass("menu-hidden")).toBe(true);
 
             show, hide = null;
         })
@@ -97,36 +80,25 @@ $(function() {
     })
 
 
-    /* TODO: Write a new test suite named "Initial Entries" */
-
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
+    // async function for testing feed loads
     describe('Initial Entries', function () {
 
         beforeEach(function (done) {
-            loadFeed(0, function () {
-            done();
-              });
+            loadFeed(0, done);
             });
-          
+        
+        //confirms at least a single entry
         it('Feed contains at least one entry', function () {
-            let entry = $('.entry').length;
-            expect(entry).toBeGreaterThan(0);
-                });
+            let entryContent = $('.feed .entry')
+            expect(entryContent.length).toBeGreaterThan(0)
+            });
+
+
           })
 
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
-
+          // does a comparison between feed lists to validate content differences
         describe('New Feed Selection', function () {
             let firstList, secondList;
           
