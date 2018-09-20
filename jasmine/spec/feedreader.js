@@ -36,7 +36,7 @@ $(function() {
         // Determines if all feeds have a valid URL
         it('allFeeds object(s) are defined', function() {
             allFeeds.forEach(function(feed) {
-                expect(feed.url.length).not.toBe(0);
+                expect(feed.url.length).toBeTruthy();
             })
         })
 
@@ -74,7 +74,6 @@ $(function() {
             let hide = $('.menu-icon-link').click();
             expect($('body').hasClass("menu-hidden")).toBe(true);
 
-            show, hide = null;
         })
 
     })
